@@ -36,4 +36,4 @@ class Notification:
             conn.login(user=EMAIL, password=PASSWORD)
             conn.sendmail(from_addr=EMAIL,
                           to_addrs=RECEIVER_EMAIL,
-                          msg=f"Subject:Low flight price Notification!!!\n\n{message}")
+                          msg=f"Subject:Low flight price Notification\n\n{message}")
