@@ -3,14 +3,23 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 
-
-TEQUILA_ENDPOINT = os.environ.get("KIWI_TEQUILA_ENDPOINT")
-TEQUILA_API = os.environ.get("KIWI_TEQUILA_API")
+TEQUILA_URL = os.environ.get("KIWI_TEQUILA_URL")
+TEQUILA_ENDPOINT = f"{TEQUILA_URL}/locations/query"
+HEADERS = {
+    "apikey": os.environ.get("KIWI_TEQUILA_API")
+}
 
 
 class Search:
 
     def get_code(self, city):
         """This function adds the city IATA CODE"""
-        code = "Testing"
-        return code
+        PARAMETERS = {
+            "term": city,
+            "location_types": "city"
+        }
+        response = requests.get(TEQUILA_ENDPOINT, headers=HEADERS, params=PARAMETERS)
+        data = response.json()['locations']
+        for d in data:
+            code = d['code']
+            return code
