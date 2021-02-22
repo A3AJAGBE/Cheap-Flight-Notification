@@ -22,7 +22,7 @@ class LookUpData:
         self.data = data['prices']
         return self.data
 
-    def update_iate_code(self):
+    def update_iata_code(self):
         """This add the city's IATA Code"""
         for city in self.data:
             update_code = {
