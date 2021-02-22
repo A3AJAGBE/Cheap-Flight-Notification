@@ -9,9 +9,9 @@ ACCOUNT_SID = os.environ['TWILIO_ACCOUNT_SID']
 AUTH_TOKEN = os.environ['TWILIO_AUTH_TOKEN']
 
 # Email config
-EMAIL = os.environ.get('YMAIL')
-PASSWORD = os.environ.get('YMAIL_PASS')
-RECEIVER_EMAIL = os.environ.get('GMAIL')
+EMAIL = os.environ.get('GMAIL')
+PASSWORD = os.environ.get('GMAIL_PASS')
+RECEIVER_EMAIL = os.environ.get('YMAIL')
 
 
 class Notification:
@@ -31,7 +31,7 @@ class Notification:
 
     def send_email(self, message):
         """This function sends an email"""
-        with smtplib.SMTP("smtp.mail.yahoo.com") as conn:
+        with smtplib.SMTP("smtp.gmail.com") as conn:
             conn.starttls()
             conn.login(user=EMAIL, password=PASSWORD)
             conn.sendmail(from_addr=EMAIL,

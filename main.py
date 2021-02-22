@@ -38,12 +38,6 @@ for destination in sheety_data:
 
     try:
         if flight.price < destination["lowestPrice"]:
-            notification.send_sms(
-                message=f"Low price alert! "
-                        f"Only €{flight.price} to fly from {flight.origin_city}-{flight.origin_airport} to "
-                        f"{flight.destination_city}-{flight.destination_airport}, "
-                        f"from {flight.out_date} to {flight.return_date}. "
-            )
             notification.send_email(
                 message=f"Low price alert! "
                         f"Only {flight.price}(EUR) to fly from {flight.origin_city}-{flight.origin_airport} to "
@@ -51,5 +45,13 @@ for destination in sheety_data:
                         f"from {flight.out_date} to {flight.return_date}. "
                         f"From: A3AJAGBE LOW FLIGHTY"
             )
+            notification.send_sms(
+                message=f"Low price alert! "
+                        f"Only €{flight.price} to fly from {flight.origin_city}-{flight.origin_airport} to "
+                        f"{flight.destination_city}-{flight.destination_airport}, "
+                        f"from {flight.out_date} to {flight.return_date}. "
+            )
+        else:
+            print(f"Flight price higher than target price.")
     except AttributeError:
         print(f"No flight price found.")
