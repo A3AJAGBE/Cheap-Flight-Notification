@@ -1,25 +1,25 @@
-import requests
-import os
-from datetime import datetime, timedelta
-from dateutil.relativedelta import relativedelta
-from dotenv import load_dotenv
-load_dotenv()
+from data import LookUpData
+from search import Search
+from pprint import pprint
 
-# Get tomorrow's date and the date in 6 months time
-tomorrow = datetime.now() + timedelta(days=1)
-tomorrow_date = tomorrow.strftime("%m/%d/%Y")
-six_months = tomorrow + relativedelta(months=+6)
-six_months_time = six_months.strftime("%m/%d/%Y")
-print(tomorrow_date)
-print(six_months_time)
+# Class Instances
+lookup_data = LookUpData()
+search = Search()
 
-SHEETY_ENDPOINT = os.environ.get("SHEETY_ENDPOINT")
-SHEETY_HEADERS = {
-    "Authorization": os.environ.get('SHEETY_AUTH')
-}
-sheety_response = requests.get(SHEETY_ENDPOINT, headers=SHEETY_HEADERS)
+# Get the lookup data
+sheety_data = lookup_data.get_data()
+# print(sheety_data)
+# To print a formatted data
+# pprint(sheety_data)
 
-flight_data = sheety_response.text
+# Check if IATA Code column is empty
+if sheety_data[0]['iataCode'] == "":
+    for row in sheety_data:
+        row['iataCode'] = search.get_code(row['city'])
+    print(f"Data: \n{sheety_data}")
+
+    lookup_data.data = sheety_data
+    lookup_data.update_iate_code()
 
 
 
