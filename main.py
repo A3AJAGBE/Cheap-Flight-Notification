@@ -1,5 +1,7 @@
 from data import LookUpData
 from search import Search
+from datetime import datetime, timedelta
+from dateutil.relativedelta import relativedelta
 
 # Class Instances
 lookup_data = LookUpData()
@@ -15,3 +17,18 @@ if sheety_data[0]['iataCode'] == '':
     lookup_data.data = sheety_data
     lookup_data.update_iata_code()
 
+# Get tomorrow's date and the date in 6 months time
+tomorrow = datetime.now() + timedelta(days=1)
+tomorrow_date = tomorrow.strftime("%d/%m/%Y")
+six_months = tomorrow + relativedelta(months=+6)
+six_months_time = six_months.strftime("%d/%m/%Y")
+
+ORIGIN_CITY_IATA = "DUB"
+
+for destination in sheety_data:
+    flight = search.check_flights(
+        ORIGIN_CITY_IATA,
+        destination["iataCode"],
+        from_time=tomorrow_date,
+        to_time=six_months_time
+    )
