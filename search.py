@@ -38,7 +38,7 @@ class Search:
             "nights_in_dst_to": 28,
             "flight_type": "round",
             "one_for_city": 1,
-            "max_stopovers": 2,
+            "max_stopovers": 1,
             "curr": "EUR"
         }
 
@@ -56,7 +56,7 @@ class Search:
             destination_airport=data["route"][0]["flyTo"],
             out_date=data["route"][0]["local_departure"].split("T")[0],
             return_date=data["route"][1]["local_departure"].split("T")[0],
-            stop_overs=2,
+            stop_overs=1,
             via_city=data["route"][0]["cityTo"]
         )
         return flight_info
