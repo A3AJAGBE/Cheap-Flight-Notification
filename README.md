@@ -4,5 +4,5 @@
 ## Project 35 - Cheap Flight Notification
 Get SMS and email notification when there's a flight with a target price
 
-![Demo]()
+![Demo](https://github.com/A3AJAGBE/Cheap-Flight-Notification/blob/main/cheap_flight.gif)
 
