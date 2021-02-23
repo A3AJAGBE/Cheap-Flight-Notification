@@ -38,7 +38,7 @@ class Search:
             "nights_in_dst_to": 28,
             "flight_type": "round",
             "one_for_city": 1,
-            "max_stopovers": 0,
+            "max_stopovers": 2,
             "curr": "EUR"
         }
 
@@ -46,7 +46,6 @@ class Search:
         try:
             data = response.json()['data'][0]
         except IndexError:
-            # print(f"No flights found for {destination_city_code}.")
             return None
 
         flight_info = FlightInfo(
@@ -56,7 +55,8 @@ class Search:
             destination_city=data["route"][0]["cityTo"],
             destination_airport=data["route"][0]["flyTo"],
             out_date=data["route"][0]["local_departure"].split("T")[0],
-            return_date=data["route"][1]["local_departure"].split("T")[0]
+            return_date=data["route"][1]["local_departure"].split("T")[0],
+            stop_overs=2,
+            via_city=data["route"][0]["cityTo"]
         )
-        # print(f"{flight_info.destination_city}: €{flight_info.price}")
         return flight_info
